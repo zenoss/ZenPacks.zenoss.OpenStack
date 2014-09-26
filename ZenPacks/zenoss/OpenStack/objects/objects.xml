@@ -17,14 +17,15 @@ True
 <property visible="True" type="lines" id="zDeviceTemplates" >
 ['OpenStackEndpoint']
 </property>
-<property visible="True" type="string" id="zPythonClass" >
-ZenPacks.zenoss.OpenStack.Endpoint
-</property>
 <property visible="True" type="float" id="zCommandCommandTimeout" >
 300.0
 </property>
 <property visible="True" type="int" id="zCommandCycleTime" >
 300
+</property>
+<object id='User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<property visible="True" type="string" id="zPythonClass" >
+ZenPacks.zenoss.OpenStack.Endpoint
 </property>
 <tomanycont id='rrdTemplates'>
 <object id='OpenStackEndpoint' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
@@ -292,6 +293,9 @@ True
 </property>
 <tomanycont id='graphPoints'>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -526,6 +530,9 @@ AVERAGE
 </property>
 </object>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -609,6 +616,9 @@ False
 </property>
 <property type="boolean" id="hasSummary" mode="w" >
 True
+</property>
+<property type="long" id="sequence" mode="w" >
+0
 </property>
 <tomanycont id='graphPoints'>
 <object id='Active' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
@@ -989,6 +999,9 @@ AVERAGE
 </property>
 </object>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -1080,6 +1093,7 @@ AVERAGE
 </tomanycont>
 </object>
 </tomanycont>
+</object>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'Image') -->
 <object id='/zport/dmd/Events/Status/Image' module='Products.ZenEvents.EventClass' class='EventClass'>

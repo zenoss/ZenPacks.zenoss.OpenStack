@@ -7,13 +7,13 @@ ZC.registerName('OpenStackImage', _t('Image'), _t('Images'));
 ZC.registerName('OpenStackServer', _t('Server'), _t('Servers'));
 
 var addOpenStack = new Zenoss.Action({
-    text: _t('Add OpenStack') + '...',
+    text: _t('Add OpenStack Endpoint (User)') + '...',
     id: 'addopenstack-item',
     permission: 'Manage DMD',
     handler: function(btn, e){
         var win = new Zenoss.dialog.CloseDialog({
             width: 450,
-            title: _t('Add OpenStack'),
+            title: _t('Add OpenStack Endpoint (User)'),
             items: [{
                 xtype: 'form',
                 buttonAlign: 'left',
@@ -41,9 +41,9 @@ var addOpenStack = new Zenoss.Action({
                     xtype: 'container',
                     layout: 'hbox',
                     items: [{
-                        xtype: 'textfield',
+                        xtype: 'password',
                         name: 'api_key',
-                        fieldLabel: _t('API Key'),
+                        fieldLabel: _t('Password / API Key'),
                         id: "openstack_api_key",
                         width: 260,
                         allowBlank: false
@@ -83,29 +83,6 @@ var addOpenStack = new Zenoss.Action({
                         xtype: 'label',
                         style: 'font-style: italic',                        
                         text: '(OS_AUTH_URL)',
-                        margin: '0 0 0 10'
-                    }]
-                }, {
-                    xtype: 'container',
-                    layout: 'hbox',
-                    items: [{
-                        xtype: 'combo',
-                        width: 260,
-                        name: 'api_version',
-                        fieldLabel: _t('Compute API Version'),
-                        id: "openstack_api_version",
-                        mode: 'local',
-                        store: [['1.1', '1.1'], ['2', '2'], ['3', '3']],
-                        value: '2',
-                        forceSelection: true,
-                        editable: false,
-                        allowBlank: false,
-                        triggerAction: 'all',
-                        selectOnFocus: false,
-                    },{
-                        xtype: 'label',
-                        style: 'font-style: italic',                        
-                        text: '(NOVA_VERSION)',
                         margin: '0 0 0 10'
                     }]
                 }, {
@@ -202,7 +179,6 @@ function addOpenStackEndPointInspectorFields(inspector) {
     inspector.addPropertyTpl(_t('Username'), '{values.username}');
     inspector.addPropertyTpl(_t('Project ID'), '{values.project_id}');
     inspector.addPropertyTpl(_t('Auth URL'), '{values.auth_url}');
-    inspector.addPropertyTpl(_t('Compute API Version'), '{values.api_version}');
     inspector.addPropertyTpl(_t('Region Name'), '{values.region_name}');
     inspector.addPropertyTpl(_t('Total Servers'), '{values.serverCount}');
     inspector.addPropertyTpl(_t('Total Flavors'), '{values.flavorCount}');
