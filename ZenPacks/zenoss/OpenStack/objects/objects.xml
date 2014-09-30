@@ -1,29 +1,7 @@
 <?xml version="1.0"?>
 <objects>
-<!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack') -->
-<object id='/zport/dmd/Devices/OpenStack' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
-<property id='zendoc' type='string'>
-OpenStack Endpoints
-</property>
-<property type="string" id="description" mode="w" >
-OpenStack Endpoints
-</property>
-<property visible="True" type="lines" id="zCollectorPlugins" >
-['zenoss.OpenStack']
-</property>
-<property visible="True" type="boolean" id="zSnmpMonitorIgnore" >
-True
-</property>
-<property visible="True" type="lines" id="zDeviceTemplates" >
-['OpenStackEndpoint']
-</property>
-<property visible="True" type="float" id="zCommandCommandTimeout" >
-300.0
-</property>
-<property visible="True" type="int" id="zCommandCycleTime" >
-300
-</property>
-<object id='User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack', 'User') -->
+<object id='/zport/dmd/Devices/OpenStack/User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
 <property visible="True" type="string" id="zPythonClass" >
 ZenPacks.zenoss.OpenStack.Endpoint
 </property>
@@ -1093,7 +1071,6 @@ AVERAGE
 </tomanycont>
 </object>
 </tomanycont>
-</object>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'Image') -->
 <object id='/zport/dmd/Events/Status/Image' module='Products.ZenEvents.EventClass' class='EventClass'>
