@@ -28,3 +28,9 @@ class ChangeDeviceClass(ZenPackMigration):
         for device in pack.dmd.Devices.getOrganizer('/OpenStack').devices():
             log.info("Moving device '%s' from /OpenStack to /OpenStack/User" % device.id)
             device.changeDeviceClass('/OpenStack/User')
+
+        # Turn off the old monitoring templates.
+        try:
+            pack.dmd.Devices.getOrganizer('/OpenStack').deleteZenProperty('zDeviceTemplates')
+        except Exception:
+            pass
