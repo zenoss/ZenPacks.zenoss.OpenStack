@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <objects>
-<!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack', 'User') -->
-<object id='/zport/dmd/Devices/OpenStack/User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack') -->
+<object id='/zport/dmd/Devices/OpenStack' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<object id='User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
 <property visible="True" type="lines" id="zDeviceTemplates" >
 ['OpenStackEndpoint']
 </property>
@@ -1074,6 +1075,7 @@ AVERAGE
 </tomanycont>
 </object>
 </tomanycont>
+</object>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'Image') -->
 <object id='/zport/dmd/Events/Status/Image' module='Products.ZenEvents.EventClass' class='EventClass'>
