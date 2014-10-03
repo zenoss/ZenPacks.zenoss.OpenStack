@@ -36,7 +36,8 @@ class ChangeDeviceClass(ZenPackMigration):
             pass
 
         # And remove it.
-        try:            
+        try:       
+            pack.dmd.Devices.getObjByPath('/OpenStack/rrdTemplates/OpenStackEndpoint')
             pack.dmd.Devices.getOrganizer('/OpenStack').rrdTemplates._delObject('OpenStackEndpoint')
         except Exception:
             pass
