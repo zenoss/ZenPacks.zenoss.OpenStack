@@ -2,6 +2,9 @@
 <objects>
 <!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack', 'User') -->
 <object id='/zport/dmd/Devices/OpenStack/User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<property visible="True" type="lines" id="zDeviceTemplates" >
+['OpenStackEndpoint']
+</property>
 <property visible="True" type="string" id="zPythonClass" >
 ZenPacks.zenoss.OpenStack.Endpoint
 </property>

@@ -35,12 +35,17 @@ class ZenPack(ZenPackBase):
 
     def install(self, app):
         super(ZenPack, self).install(app)
+        self.chmodScripts()
 
     def remove(self, app, leaveObjects=False):
         if not leaveObjects:
             self.removePluginSymlink()
 
         super(ZenPack, self).remove(app, leaveObjects=leaveObjects)
+
+    def chmodScripts(self):
+        for script in ('poll_openstack.py',):
+            os.system('chmod 0755 {0}'.format(self.path(script)))
 
     def removePluginSymlink(self):
         if os.path.exists(zenPath('libexec', 'poll_openstack.py')):
