@@ -3,6 +3,9 @@
 <!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack') -->
 <object id='/zport/dmd/Devices/OpenStack' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
 <object id='User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<property visible="True" type="lines" id="zCollectorPlugins" >
+['zenoss.OpenStack']
+</property>	
 <property visible="True" type="lines" id="zDeviceTemplates" >
 ['OpenStackEndpoint']
 </property>
