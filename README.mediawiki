@@ -1,4 +1,4 @@
-This ZenPack allows for monitoring of OpenStack. This means that you can monitor the flavors, images and servers from a user or consumer perspective. OpenStack API versions 1.0 and 1.1 are supported. Please watch the [http://www.youtube.com/watch?v=-43gnQLbX9g Monitoring OpenStack] video for a quick introduction that covers most of the details below.
+This ZenPack allows for monitoring of OpenStack. This means that you can monitor the flavors, images and servers from a user or consumer perspective.  Please watch the [http://www.youtube.com/watch?v=-43gnQLbX9g Monitoring OpenStack] video for a quick introduction that covers most of the details below.
 
 {{note}} The video is of an early version of the ZenPack that doesn't have as many options when adding an OpenStack endpoint. See the usage notes below for help with the new fields available on the ''Add OpenStack'' dialog.
 
@@ -48,6 +48,11 @@ Status monitoring is performed on servers and images with the following mapping 
 If you are also using Zenoss to monitor the guest operating system running within the server Zenoss will present the graphs for that operating system when the graphs option is chosen for the OpenStack server.
 
 == Changes ==
+
+;1.2.3
+* Move devices from /Devices/OpenStack to /Devices/OpenStack/User
+* Support new OpenStackInfrastructure ZenPack
+* Drop support for Compute API v1.x
 
 ;1.2.2
 * Fix bug that could prevent data collection.
