@@ -2,29 +2,15 @@
 <objects>
 <!-- ('', 'zport', 'dmd', 'Devices', 'OpenStack') -->
 <object id='/zport/dmd/Devices/OpenStack' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
-<property id='zendoc' type='string'>
-OpenStack Endpoints
-</property>
-<property type="string" id="description" mode="w" >
-OpenStack Endpoints
-</property>
+<object id='User' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
 <property visible="True" type="lines" id="zCollectorPlugins" >
 ['zenoss.OpenStack']
-</property>
-<property visible="True" type="boolean" id="zSnmpMonitorIgnore" >
-True
-</property>
+</property>	
 <property visible="True" type="lines" id="zDeviceTemplates" >
 ['OpenStackEndpoint']
 </property>
 <property visible="True" type="string" id="zPythonClass" >
 ZenPacks.zenoss.OpenStack.Endpoint
-</property>
-<property visible="True" type="float" id="zCommandCommandTimeout" >
-300.0
-</property>
-<property visible="True" type="int" id="zCommandCycleTime" >
-300
 </property>
 <tomanycont id='rrdTemplates'>
 <object id='OpenStackEndpoint' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
@@ -46,7 +32,7 @@ True
 4
 </property>
 <property type="string" id="commandTemplate" mode="w" >
-poll_openstack.py '${here/zCommandUsername}' '${here/zCommandPassword}' '${here/zOpenStackProjectId}' '${here/zOpenStackAuthUrl}' '${here/zOpenstackComputeApiVersion}' '${here/zOpenStackRegionName}'
+${here/ZenPackManager/packs/ZenPacks.zenoss.OpenStack/path}/poll_openstack.py '${here/zCommandUsername}' '${here/zCommandPassword}' '${here/zOpenStackProjectId}' '${here/zOpenStackAuthUrl}' '${here/zOpenstackComputeApiVersion}' '${here/zOpenStackRegionName}'
 </property>
 <property type="int" id="cycletime" mode="w" >
 300
@@ -292,6 +278,9 @@ True
 </property>
 <tomanycont id='graphPoints'>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -526,6 +515,9 @@ AVERAGE
 </property>
 </object>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -609,6 +601,9 @@ False
 </property>
 <property type="boolean" id="hasSummary" mode="w" >
 True
+</property>
+<property type="long" id="sequence" mode="w" >
+0
 </property>
 <tomanycont id='graphPoints'>
 <object id='Active' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
@@ -989,6 +984,9 @@ AVERAGE
 </property>
 </object>
 <object id='Total' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
 <property type="string" id="color" mode="w" >
 000000
 </property>
@@ -1080,6 +1078,7 @@ AVERAGE
 </tomanycont>
 </object>
 </tomanycont>
+</object>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'Image') -->
 <object id='/zport/dmd/Events/Status/Image' module='Products.ZenEvents.EventClass' class='EventClass'>

@@ -35,7 +35,7 @@ class ZenPack(ZenPackBase):
 
     def install(self, app):
         super(ZenPack, self).install(app)
-        self.symlinkPlugin()
+        self.chmodScripts()
 
     def remove(self, app, leaveObjects=False):
         if not leaveObjects:
@@ -43,16 +43,14 @@ class ZenPack(ZenPackBase):
 
         super(ZenPack, self).remove(app, leaveObjects=leaveObjects)
 
-    def symlinkPlugin(self):
-        log.info('Linking poll_openstack.py plugin into $ZENHOME/libexec/')
-        plugin_path = zenPath('libexec', 'poll_openstack.py')
-        os.system('ln -sf {0} {1}'.format(
-            self.path('poll_openstack.py'), plugin_path))
-        os.system('chmod 0755 {0}'.format(plugin_path))
+    def chmodScripts(self):
+        for script in ('poll_openstack.py',):
+            os.system('chmod 0755 {0}'.format(self.path(script)))
 
     def removePluginSymlink(self):
-        log.info('Removing poll_openstack.py link from $ZENHOME/libexec/')
-        os.system('rm -f {0}'.format(zenPath('libexec', 'poll_openstack.py')))
+        if os.path.exists(zenPath('libexec', 'poll_openstack.py')):
+            log.info('Removing poll_openstack.py link from $ZENHOME/libexec/')
+            os.system('rm -f {0}'.format(zenPath('libexec', 'poll_openstack.py')))
 
 # We need to filter OpenStack components by id instead of name.
 EventManagerBase.ComponentIdWhere = (

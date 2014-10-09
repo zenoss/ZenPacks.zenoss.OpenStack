@@ -23,13 +23,13 @@ from Products.Zuul.utils import ZuulMessageFactory as _t
 
 from ZenPacks.zenoss.OpenStack.interfaces import IOpenStackFacade
 
-OPENSTACK_DEVICE_PATH = "/Devices/OpenStack"
+OPENSTACK_DEVICE_PATH = "/Devices/OpenStack/User"
 
 
 class OpenStackFacade(ZuulFacade):
     implements(IOpenStackFacade)
 
-    def addOpenStack(self, username, api_key, project_id, auth_url, api_version, 
+    def addOpenStack(self, username, api_key, project_id, auth_url,
                      region_name=None, collector='localhost'):
         """Add a new OpenStack endpoint to the system."""
         parsed_url = urlparse(auth_url)
@@ -46,7 +46,7 @@ class OpenStackFacade(ZuulFacade):
             'zCommandPassword': api_key,
             'zOpenStackProjectId': project_id,
             'zOpenStackAuthUrl': auth_url,
-            'zOpenstackComputeApiVersion': api_version,
+            'zOpenstackComputeApiVersion': 2,
             'zOpenStackRegionName': region_name or '',
             }
 
