@@ -170,8 +170,13 @@ class OpenStack(PythonPlugin):
             image_id = None
             if hasattr(server, 'imageId'):
                 image_id = server.imageId
-            else:
+            elif isinstance(server.image, types.DictionaryType):
                 image_id = server.image['id']
+            else:
+                # No image, which can occur if the instance is booted from
+                # a volume with no image specified (image is not used in this
+                # case, but should be specified anyway)
+                pass
 
             servers.append(ObjectMap(data=dict(
                 id='server{0}'.format(server.id),
