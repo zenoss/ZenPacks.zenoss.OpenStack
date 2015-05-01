@@ -24,6 +24,18 @@ addLocalLibPath()
 
 from novaclient import client as novaclient
 
+class NovaLogFormatter(logging.Formatter):
+    def format(self, record):
+        string = super(NovaLogFormatter, self).format(record)
+        if '"password":' in string:
+            # mask "password": "password" with "password": "********"
+            start = string.index('"password":')
+            head = string.index('"', start + len('"password":'))
+            tail = string.index('"', head + 1)
+            string = string[:head + 1] + '*' * (tail - head - 1) + string[tail:]
+        return string
+
+
 class OpenStack(PythonPlugin):
     deviceProperties = PythonPlugin.deviceProperties + (
         'zCommandUsername',
@@ -41,7 +53,6 @@ class OpenStack(PythonPlugin):
 
         if (log.isEnabledFor(logging.DEBUG)):
             http_log_debug = True
-            logging.getLogger('novaclient.client').setLevel(logging.DEBUG)
         else:
             http_log_debug = False
 
@@ -54,6 +65,12 @@ class OpenStack(PythonPlugin):
             region_name=region_name,
             http_log_debug=http_log_debug
         )
+
+        if (log.isEnabledFor(logging.DEBUG)):
+            client.client._logger.setLevel(logging.DEBUG)
+
+        for handler in client.client._logger.handlers:
+            handler.setFormatter(NovaLogFormatter())
 
         results = {}
 
