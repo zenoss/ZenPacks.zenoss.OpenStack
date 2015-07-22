@@ -7,7 +7,7 @@ OpenStack is a global collaboration of developers and cloud computing technologi
 </blockquote>
 
 == Usage ==
-Once the OpenStack ZenPack is installed you can begin monitoring by going to the infrastructure screen and clicking the normal button for adding devices. You'll find a new option labeled, "Add OpenStack."
+Once the OpenStack ZenPack is installed you can begin monitoring by going to the infrastructure screen and clicking the normal button for adding devices. You'll find a new option labeled, "Add OpenStack Endpoint (User)'".
 
 Choose that option and you'll be presented with a dialog asking for the following inputs.
 
