@@ -19,15 +19,21 @@ class OpenStackRouter(DirectRouter):
     def _getFacade(self):
         return Zuul.getFacade('openstack', self.context)
 
-    def addOpenStack(self, username, api_key, project_id, auth_url,
+    def addOpenStack(self, device_name, username, api_key, project_id, auth_url,
                      region_name=None, collector='localhost'):
 
         facade = self._getFacade()
         success, message = facade.addOpenStack(
-            username, api_key, project_id, auth_url,
+            device_name, username, api_key, project_id, auth_url,
             region_name=region_name, collector=collector)
 
         if success:
             return DirectResponse.succeed(jobId=message)
         else:
             return DirectResponse.fail(message)
+
+    def getRegions(self, username, api_key, project_id, auth_url):
+        facade = self._getFacade()
+
+        data = facade.getRegions(username, api_key, project_id, auth_url)
+        return DirectResponse(success=True, data=data)
