@@ -44,7 +44,7 @@ class ZenPack(ZenPackBase):
         super(ZenPack, self).remove(app, leaveObjects=leaveObjects)
 
     def chmodScripts(self):
-        for script in ('poll_openstack.py',):
+        for script in ('poll_openstack.py', 'openstack_helper.py',):
             os.system('chmod 0755 {0}'.format(self.path(script)))
 
     def removePluginSymlink(self):
