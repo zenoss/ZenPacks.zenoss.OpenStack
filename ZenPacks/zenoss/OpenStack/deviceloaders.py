@@ -26,9 +26,9 @@ class OpenStackLoader(object):
     """
     implements(IDeviceLoader)
 
-    def load_device(self, dmd, username, api_key, project_id, auth_url,
+    def load_device(self, dmd, device_name, username, api_key, project_id, auth_url,
                     region_name=None, collector='localhost'):
 
         return getFacade('openstack', dmd).addOpenStack(
-            username, api_key, project_id, auth_url, api_version, 
+            device_name, username, api_key, project_id, auth_url,
             region_name=region_name, collector=collector)
