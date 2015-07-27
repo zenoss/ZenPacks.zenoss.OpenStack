@@ -11,11 +11,16 @@ Once the OpenStack ZenPack is installed you can begin monitoring by going to the
 
 Choose that option and you'll be presented with a dialog asking for the following inputs.
 
+# Device To Create - non-empty, non-ip, non-dns, unique name to use for this device in Zenoss. ''See note below''.
+# Auth URL - A keystone URL, such as http://<hostname>:5000/v2.0/
 # Username - Same username used to login to OpenStack web interface
-# API Key - Can be found by going to "Your Account/API Access"
-# Project ID - This can be left blank if you don't know what it is
-# Auth URL - For Rackspace this would be https://auth.api.rackspacecloud.com/v2.0
-# Region Name - This can be left blank if you don't know what it is
+# Password / API Key - Password to use
+# Project/Tenant ID
+# Region Name - choose the correct region from the drop-down. 
+
+Most of these parameters can be be found by going to "Your Account/API Access"
+in the OpenStack web interface, or from the corresponding environment variables
+for the OpenStack command line tools.
 
 Once you click Add, Zenoss will contact the OpenStack API and discover servers, images and flavors. Once it is complete you'll find a new device in the OpenStack device class with the same name as the hostname or IP you entered into the dialog. Click into this new device to see everything that was discovered.
 
@@ -48,6 +53,11 @@ Status monitoring is performed on servers and images with the following mapping 
 If you are also using Zenoss to monitor the guest operating system running within the server Zenoss will present the graphs for that operating system when the graphs option is chosen for the OpenStack server.
 
 == Changes ==
+
+;1.2.4
+* Change "add" form to more closely resemble the one used for OpenStackInfrastructure
+* Require user to name the device, rather than using the manageIp
+* No longer use manageIp at all.  This allows for multiple user devices to contact the same openstack install.
 
 ;1.2.3
 * Move devices from /Devices/OpenStack to /Devices/OpenStack/User
