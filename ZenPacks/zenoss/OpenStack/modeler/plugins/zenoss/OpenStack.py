@@ -182,13 +182,13 @@ class OpenStack(PythonPlugin):
             if hasattr(server, 'flavorId'):
                 flavor_id = server.flavorId
             else:
-                flavor_id = server.flavor['id']
+                flavor_id = server.flavor.get('id', None)
 
             image_id = None
             if hasattr(server, 'imageId'):
                 image_id = server.imageId
             elif isinstance(server.image, types.DictionaryType):
-                image_id = server.image['id']
+                image_id = server.image.get('id', None)
             else:
                 # No image, which can occur if the instance is booted from
                 # a volume with no image specified (image is not used in this

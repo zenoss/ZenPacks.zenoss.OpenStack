@@ -335,7 +335,7 @@ ZC.OpenStackServerPanel = Ext.extend(ZC.OpenStackComponentGridPanel, {
                         return Zenoss.render.link(obj.uid, undefined, obj.name);
                     }
                 },
-                width: 160
+                width: 100
             },{
                 id: 'serverStatus',
                 dataIndex: 'serverStatus',
@@ -347,7 +347,7 @@ ZC.OpenStackServerPanel = Ext.extend(ZC.OpenStackComponentGridPanel, {
                 dataIndex: 'flavor',
                 header: _t('Flavor'),
                 renderer: Zenoss.render.OpenStack_entityLinkFromGrid,
-                width: 160
+                width: 80
             },{
                 id: 'image',
                 dataIndex: 'image',
