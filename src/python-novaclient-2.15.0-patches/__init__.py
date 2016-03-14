@@ -12,7 +12,4 @@
 #   License for the specific language governing permissions and limitations
 #   under the License.
 
-import pbr.version
-
-
 __version__ = "2.15.0"

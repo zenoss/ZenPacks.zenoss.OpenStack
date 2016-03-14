@@ -1,1 +1,3 @@
 */requirements.txt
+python-novaclient-2.15.0/novaclient/__init__.py
+python-novaclient-2.15.0/setup.py

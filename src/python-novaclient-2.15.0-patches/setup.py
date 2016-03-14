@@ -14,10 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# THIS FILE IS MANAGED BY THE GLOBAL REQUIREMENTS REPO - DO NOT EDIT
-import setuptools
+from setuptools import setup, find_packages
+from novaclient import __version__ as version
 
-setuptools.setup(
-    # setup_requires=['pbr>=0.5.21,<1.0'],
-    # pbr=True)
+setup(
+    name='python-novaclient',
+    version=version,
+    summary='Client library for OpenStack Compute API',
+    license='Apache License, Version 2.0',
+    author='OpenStack',
+    author_email='openstack-dev@lists.openstack.org',
+    url='https://github.com/openstack/python-novaclient',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Environment :: OpenStack',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Information Technology',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+    ],
+    packages=find_packages()
 )
