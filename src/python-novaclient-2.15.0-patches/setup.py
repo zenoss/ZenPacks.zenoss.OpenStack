@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +13,11 @@
 # implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import print_function
 
+# THIS FILE IS MANAGED BY THE GLOBAL REQUIREMENTS REPO - DO NOT EDIT
+import setuptools
 
-def main():
-    print("PBR Test Command")
-
-
-class Foo(object):
-
-    @classmethod
-    def bar(self):
-        print("PBR Test Command - with class!")
+setuptools.setup(
+    # setup_requires=['pbr>=0.5.21,<1.0'],
+    # pbr=True)
+)
