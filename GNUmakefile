@@ -27,9 +27,6 @@ build:
 	cd $(SRC_DIR)/pip-1.4.1 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
-	cd $(SRC_DIR)/pbr-0.5.21 && \
-		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
-			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 	cd $(SRC_DIR)/prettytable-0.7.2 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
@@ -48,14 +45,16 @@ build:
 	# convince novaclient not to try to download any dependencies. We have already taken
 	# care of them above.
 	cp /dev/null $(SRC_DIR)/python-novaclient-2.15.0/requirements.txt
+	# Remove pbr requirement
+	cp $(SRC_DIR)/python-novaclient-2.15.0-patches/setup.py $(SRC_DIR)/python-novaclient-2.15.0/
+	cp $(SRC_DIR)/python-novaclient-2.15.0-patches/__init__.py $(SRC_DIR)/python-novaclient-2.15.0/novaclient/
 	cd $(SRC_DIR)/python-novaclient-2.15.0 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 
 clean:
 	rm -rf build dist *.egg-info
-	find . -name '*.pyc' | xargs rm
-	cd $(NOVACLIENT_DIR) ; rm -rf build dist *.egg-info
-	rm -f $(BIN_DIR)/nova
-	cd $(LIB_DIR) ; rm -Rf *.egg site.py easy-install.pth
-
+	rm -rf src/*/{build,dist,*.egg-info}
+	find . -name '*.pyc' | xargs rm -f
+	rm -rf $(BIN_DIR) $(LIB_DIR)
+	mkdir $(BIN_DIR) $(LIB_DIR)
