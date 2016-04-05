@@ -24,9 +24,10 @@ egg:
 	python setup.py bdist_egg
 
 build:	
-	mkdir -p $(ZP_DIR)/lib
-	
-	rm -rf $(SRC_DIR)/prettytable-0.7.2/build
+	mkdir -p $(BIN_DIR) $(LIB_DIR)
+	cd $(SRC_DIR)/pip-1.4.1 && \
+		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
+			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 	cd $(SRC_DIR)/prettytable-0.7.2 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py build
 	cp -r $(SRC_DIR)/prettytable-0.7.2/build/lib*/prettytable.py $(ZP_DIR)/lib
@@ -76,4 +77,3 @@ clean:
 	rm -rf src/*/{build,dist,*.egg-info}
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf $(BIN_DIR) $(LIB_DIR)
-	mkdir $(BIN_DIR) $(LIB_DIR)
