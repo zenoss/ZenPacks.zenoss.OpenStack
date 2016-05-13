@@ -22,7 +22,8 @@ from Products.DataCollector.plugins.DataMaps import ObjectMap, RelationshipMap
 from ZenPacks.zenoss.OpenStack.util import addLocalLibPath
 addLocalLibPath()
 
-from novaclient import client as novaclient
+from ZenPacks.zenoss.OpenStack.lib.novaclient import client as novaclient
+
 
 class NovaLogFormatter(logging.Formatter):
     def format(self, record):
