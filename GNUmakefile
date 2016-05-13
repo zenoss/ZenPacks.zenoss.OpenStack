@@ -49,6 +49,10 @@ build:
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 
+	# Note: some files were patched, but I did not check in the patched versions.
+	# to tell git not to pester you about them, you may want to do the following:
+	# git update-index --assume-unchanged src/python-novaclient-2.15.0/novaclient/__init__.py src/python-novaclient-2.15.0/setup.py			
+
 clean:
 	rm -rf build dist *.egg-info
 	rm -rf src/*/{build,dist,*.egg-info}
