@@ -24,9 +24,6 @@ egg:
 	python setup.py bdist_egg
 
 build:	
-	cd $(SRC_DIR)/pip-1.4.1 && \
-		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
-			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 	cd $(SRC_DIR)/prettytable-0.7.2 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
