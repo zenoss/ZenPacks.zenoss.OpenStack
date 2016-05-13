@@ -24,9 +24,6 @@ egg:
 	python setup.py bdist_egg
 
 build:	
-	cd $(SRC_DIR)/pip-1.4.1 && \
-		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
-			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
 	cd $(SRC_DIR)/prettytable-0.7.2 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
@@ -51,6 +48,10 @@ build:
 	cd $(SRC_DIR)/python-novaclient-2.15.0 && \
 		PYTHONPATH="$(PYTHONPATH):$(LIB_DIR)" $(PYTHON) setup.py install \
 			--install-lib="$(LIB_DIR)" --install-scripts="$(BIN_DIR)"
+
+	# Note: some files were patched, but I did not check in the patched versions.
+	# to tell git not to pester you about them, you may want to do the following:
+	# git update-index --assume-unchanged src/python-novaclient-2.15.0/novaclient/__init__.py src/python-novaclient-2.15.0/setup.py			
 
 clean:
 	rm -rf build dist *.egg-info
