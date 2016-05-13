@@ -1,2 +1,7 @@
 bin
-lib
+lib/babel
+lib/iso8601
+lib/novaclient
+lib/prettytable.*
+lib/requests
+lib/simplejson
