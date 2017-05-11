@@ -22,11 +22,13 @@ from novaclient import client as novaclient
 
 
 class OpenStackPoller(object):
-    def __init__(self, username, api_key, project_id, auth_url, api_version, region_name):
+    def __init__(self, username, api_key, project_id, auth_url, insecure,
+                 api_version, region_name):
         self._username = username
         self._api_key = api_key
         self._project_id = project_id
         self._auth_url = auth_url
+        self._insecure = insecure
         self._api_version = api_version
         self._region_name = region_name
 
@@ -37,6 +39,7 @@ class OpenStackPoller(object):
             self._api_key,
             self._project_id,
             self._auth_url,
+            insecure=self._insecure,
             region_name=self._region_name or None,
             http_log_debug=False)
 
@@ -192,18 +195,21 @@ class OpenStackPoller(object):
         print json.dumps(data)
 
 if __name__ == '__main__':
-    username = api_key = project_id = auth_url = api_version = region_name = None
+    username = api_key = project_id = auth_url = insecure = None
+    api_version = region_name = None
     try:
-        username, api_key, project_id, auth_url, api_version, region_name = sys.argv[1:7]
+        username, api_key, project_id, auth_url, insecure = sys.argv[1:6]
+        api_version, region_name = sys.argv[6:8]
     except ValueError:
         print >> sys.stderr, (
-            "Usage: %s <username> <api_key> <project_id> <auth_url> "
+            "Usage: %s <username> <api_key> <project_id> <auth_url> <insecure>"
             "<api_version> <region_name>"
             ) % sys.argv[0]
 
         sys.exit(1)
 
     poller = OpenStackPoller(
-        username, api_key, project_id, auth_url, api_version, region_name)
+        username, api_key, project_id, auth_url, insecure,
+        api_version, region_name)
 
     poller.printJSON()

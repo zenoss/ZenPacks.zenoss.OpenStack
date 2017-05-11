@@ -51,6 +51,10 @@ class EndpointInfo(DeviceInfo):
         return self._object.primaryAq().zOpenStackAuthUrl
 
     @property
+    def insecure(self):
+        return self._object.primaryAq().zOpenStackInsecure
+
+    @property
     def api_version(self):
         return self._object.primaryAq().zOpenstackComputeApiVersion
 
