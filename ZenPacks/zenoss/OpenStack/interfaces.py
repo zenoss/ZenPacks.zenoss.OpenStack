@@ -27,6 +27,7 @@ class IEndpointInfo(IDeviceInfo):
     username = schema.TextLine(title=_t(u"Username"))
     project_id = schema.TextLine(title=_t(u"Project ID"))
     auth_url = schema.TextLine(title=_t(u"Auth URL"))
+    insecure = schema.TextLine(title=_t(u"Insecure Connection"))
     region_name = schema.TextLine(title=_t(u"Region Name"))
     serverCount = schema.Int(title=_t(u"Total Servers"))
     flavorCount = schema.Int(title=_t(u"Total Flavors"))

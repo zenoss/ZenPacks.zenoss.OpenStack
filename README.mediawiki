@@ -54,10 +54,13 @@ If you are also using Zenoss to monitor the guest operating system running withi
 
 == Changes ==
 
-;1.2.4
+;1.3.0
 * Change "add" form to more closely resemble the one used for OpenStackInfrastructure
 * Require user to name the device, rather than using the manageIp
 * No longer use manageIp at all.  This allows for multiple user devices to contact the same openstack install.
+
+;1.2.4
+* zOpenStackInsecure option added to skip SSL certificate verification, which allows self-signed or third-party certificates. (ZEN-23460)
 
 ;1.2.3
 * Move devices from /Devices/OpenStack to /Devices/OpenStack/User
@@ -68,7 +71,7 @@ If you are also using Zenoss to monitor the guest operating system running withi
 * Fix bug that could prevent data collection.
 
 ;1.2.1
-* Fix bug in handling of flavor ID. ([https://jira.zenoss.com/browse/ZEN-10333 ZEN-10333])
+* Fix bug in handling of flavor ID. (ZEN-10333)
 
 ;1.2.0
 * Add support for compute API versions 2 and 3. Still support version 1.

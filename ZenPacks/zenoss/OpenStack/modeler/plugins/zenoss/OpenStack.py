@@ -43,6 +43,7 @@ class OpenStack(PythonPlugin):
         'zCommandPassword',
         'zOpenStackProjectId',
         'zOpenStackAuthUrl',
+        'zOpenStackInsecure',
         'zOpenStackRegionName',
         'zOpenstackComputeApiVersion'
     )
@@ -63,6 +64,7 @@ class OpenStack(PythonPlugin):
             device.zCommandPassword,
             device.zOpenStackProjectId,
             device.zOpenStackAuthUrl,
+            insecure=device.zOpenStackInsecure,
             region_name=region_name,
             http_log_debug=http_log_debug
         )
