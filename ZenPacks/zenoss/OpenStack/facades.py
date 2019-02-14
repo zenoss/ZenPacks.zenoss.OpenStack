@@ -36,6 +36,7 @@ OPENSTACK_DEVICE_PATH = "/Devices/OpenStack/User"
 def zenpack_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
+
 _helper = zenpack_path('openstack_helper.py')
 
 
@@ -82,7 +83,7 @@ class OpenStackFacade(ZuulFacade):
             'zOpenStackAuthUrl': auth_url,
             'zOpenstackComputeApiVersion': 2,
             'zOpenStackRegionName': region_name or '',
-            }
+        }
 
         @transact
         def create_device():

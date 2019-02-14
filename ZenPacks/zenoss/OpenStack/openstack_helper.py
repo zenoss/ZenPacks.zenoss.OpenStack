@@ -2,7 +2,7 @@
 ###########################################################################
 #
 # This program is part of Zenoss Core, an open source monitoring platform.
-# Copyright (C) 2015, Zenoss Inc.
+# Copyright (C) 2011-2019, Zenoss Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 2 or (at your
@@ -15,13 +15,13 @@
 import json
 import sys
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 log = logging.getLogger('openstackHelper')
 
 from optparse import OptionParser
 from twisted.internet.defer import inlineCallbacks, returnValue
 
-from apiclients.keystoneapiclient import KeystoneAPIClient
+from apiclients.session import SessionManager
 
 
 class OpenstackHelper(object):
@@ -30,44 +30,16 @@ class OpenstackHelper(object):
     def getRegions(self, username, api_key, project_id, auth_url):
         """Get a list of available regions, given a keystone endpoint and credentials."""
 
-        client = KeystoneAPIClient(
+        sm = SessionManager(
             username=username,
             password=api_key,
             project_id=project_id,
             auth_url=auth_url,
         )
 
-        serviceCatalog = yield client.serviceCatalog()
-
-        ep = []
-        [ep.extend(x['endpoints']) for x in serviceCatalog]
-        regions = set([x['region'] for x in ep])
+        regions = yield sm.get_regions()
 
         returnValue([{'key': c, 'label': c} for c in sorted(regions)])
-
-    @inlineCallbacks
-    def getCeilometerUrl(self, username, api_key, project_id, auth_url, region_name):
-        """Return the first defined ceilometer URL, given a keystone endpoint,
-        credentials, and a region.  May return an empty string if none is found."""
-
-        client = KeystoneAPIClient(
-            username=username,
-            password=api_key,
-            project_id=project_id,
-            auth_url=auth_url,
-        )
-
-        serviceCatalog = yield client.serviceCatalog()
-
-        for sc in serviceCatalog:
-            if sc['type'] == 'metering':
-                for endpoint in sc['endpoints']:
-                    if endpoint['region'] == region_name:
-                        returnValue(str(endpoint['publicURL']))
-                        return
-
-        # never found one.
-        returnValue("")
 
 
 if __name__ == '__main__':
@@ -81,7 +53,6 @@ if __name__ == '__main__':
 
     supported_methods = {
         'getRegions': ('username', 'api_key', 'project_id', 'auth_url',),
-        'getCeilometerUrl': ('username', 'api_key', 'project_id', 'auth_url', 'region_name',)
     }
 
     if methodname in supported_methods:
