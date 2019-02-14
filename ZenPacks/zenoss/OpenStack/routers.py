@@ -32,8 +32,8 @@ class OpenStackRouter(DirectRouter):
         else:
             return DirectResponse.fail(message)
 
-    def getRegions(self, username, api_key, project_id, auth_url):
+    def getRegions(self, username, api_key, project_id, auth_url, collector):
         facade = self._getFacade()
 
-        data = facade.getRegions(username, api_key, project_id, auth_url)
+        data = facade.getRegions(username, api_key, project_id, auth_url, collector)
         return DirectResponse(success=True, data=data)
