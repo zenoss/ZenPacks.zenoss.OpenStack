@@ -30,7 +30,7 @@ def zenpack_version():
     if not ZP_VERSION:
         import pkg_resources
         working_set = pkg_resources.WorkingSet()
-        requirement = pkg_resources.Requirement.parse('ZenPacks.zenoss.OpenStackInfrastructure')
+        requirement = pkg_resources.Requirement.parse('ZenPacks.zenoss.OpenStack')
         ZP_VERSION.append(working_set.find(requirement).version)
     return ZP_VERSION[0]
 

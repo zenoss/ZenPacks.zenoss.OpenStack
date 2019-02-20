@@ -24,8 +24,8 @@ from twisted.internet.defer import inlineCallbacks, returnValue
 from util import addLocalLibPath
 addLocalLibPath()
 
-from apiclients.session import SessionManager
-from apiclients.txapiclient import NovaClient
+from ZenPacks.zenoss.OpenStack.apiclients.session import SessionManager
+from ZenPacks.zenoss.OpenStack.apiclients.txapiclient import NovaClient
 
 
 class OpenStackPoller(object):
