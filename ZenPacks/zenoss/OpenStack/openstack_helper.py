@@ -21,7 +21,7 @@ log = logging.getLogger('openstackHelper')
 from optparse import OptionParser
 from twisted.internet.defer import inlineCallbacks, returnValue
 
-from ZenPacks.zenoss.OpenStack.apiclients.session import SessionManager
+from apiclients.session import SessionManager
 
 
 class OpenstackHelper(object):
