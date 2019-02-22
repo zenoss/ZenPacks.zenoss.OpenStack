@@ -35,3 +35,5 @@ class Endpoint(Device):
         ),
     )
 
+    def getIconPath(self):
+        return '/++resource++openstack/img/openstack.png'

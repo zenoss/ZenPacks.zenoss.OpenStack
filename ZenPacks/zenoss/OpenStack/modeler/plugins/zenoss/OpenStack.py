@@ -23,8 +23,8 @@ addLocalLibPath()
 
 from twisted.internet.defer import inlineCallbacks, returnValue
 
-from apiclients.session import SessionManager
-from apiclients.txapiclient import NovaClient
+from ZenPacks.zenoss.OpenStack.apiclients.session import SessionManager
+from ZenPacks.zenoss.OpenStack.apiclients.txapiclient import NovaClient
 
 
 class OpenStack(PythonPlugin):
@@ -44,6 +44,14 @@ class OpenStack(PythonPlugin):
         if device.zOpenStackRegionName:
             region_name = device.zOpenStackRegionName
 
+        if not device.zCommandUsername or not device.zCommandPassword:
+            log.error("Password/Username should be set to proper values. Check your Openstack credentials.")
+            returnValue({})
+
+        if not device.zOpenStackAuthUrl or not device.zOpenStackProjectId or not device.zOpenStackRegionName:
+            log.error("Openstack credentials should be set to proper values. Check your OpenStackAuthUrl, OpenStackProjectId and OpenStackRegionName")
+            returnValue({})
+
         sm = SessionManager(
             device.zCommandUsername,
             device.zCommandPassword,
@@ -56,18 +64,22 @@ class OpenStack(PythonPlugin):
 
         log.info('Requesting flavors')
         results['flavors'] = yield nova.flavors(detailed=True, is_public=None)
+        results['flavors'] = results['flavors'].get('flavors', [])
 
         log.info('Requesting images')
         results['images'] = yield nova.images(limit=0)
+        results['images'] = results['images'].get('images', [])
 
         log.info('Requesting servers')
         results['servers'] = yield nova.servers(detailed=True)
+        results['servers'] = results['servers'].get('servers', [])
 
         returnValue(results)
 
     def process(self, devices, results, unused):
         flavors = []
-        for flavor in results['flavors'].get('flavors', []):
+
+        for flavor in results['flavors']:
             flavors.append(ObjectMap(data=dict(
                 id=prepId('flavor{0}'.format(flavor['id'])),
                 title=flavor.get('name', flavor['id']),  # 256 server
@@ -82,7 +94,7 @@ class OpenStack(PythonPlugin):
             objmaps=flavors)
 
         images = []
-        for image in results['images'].get('images', []):
+        for image in results['images']:
             images.append(ObjectMap(data=dict(
                 id=prepId('image{0}'.format(image['id'])),
                 title=image.get('name', image['id']),  # Red Hat Enterprise Linux 5.5
@@ -98,7 +110,7 @@ class OpenStack(PythonPlugin):
             objmaps=images)
 
         servers = []
-        for server in results['servers'].get('servers', []):
+        for server in results['servers']:
             # Backup support is optional. Guard against it not existing.
             backup_schedule_enabled = server.get('backup_schedule',
                                                  {}).get('enabled', False)

@@ -21,9 +21,9 @@ log = logging.getLogger('zen.OpenStack.txapiclient')
 from Products.ZenUtils.Utils import unused
 unused(Globals)
 
-from ZenPacks.zenoss.OpenStackInfrastructure.apiclients.session import SessionManager
-from ZenPacks.zenoss.OpenStackInfrastructure.apiclients.exceptions import *
-from ZenPacks.zenoss.OpenStackInfrastructure.apiclients.base import BaseClient, api
+from ZenPacks.zenoss.OpenStack.apiclients.session import SessionManager
+from ZenPacks.zenoss.OpenStack.apiclients.exceptions import *
+from ZenPacks.zenoss.OpenStack.apiclients.base import BaseClient, api
 
 from twisted.internet import reactor
 from twisted.internet.defer import inlineCallbacks, returnValue
