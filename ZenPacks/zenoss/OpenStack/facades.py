@@ -58,9 +58,9 @@ def _runcommand(cmd):
         except Exception:
             message = stderr
 
-        message = "\n".join([x for x in stderr.split("\n") if "zminion-return" not in x])
+        message = "\n".join([x for x in message.split("\n") if "zminion-return" not in x])
         message = message.replace('\r', '').replace('\n', '')
-        log.exception(subprocess.CalledProcessError(p.returncode, cmd=cmd, output=message))        
+        log.exception(subprocess.CalledProcessError(p.returncode, cmd=cmd, output=message))
         raise KeystoneError(message)
 
 
