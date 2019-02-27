@@ -14,10 +14,12 @@
 import logging
 log = logging.getLogger('zen.OpenStackFacade')
 
+import os
 import json
 import os.path
 from urlparse import urlparse
 import subprocess
+from pipes import quote as shellquote
 
 from zope.event import notify
 from zope.interface import implements
@@ -26,6 +28,7 @@ from ZODB.transact import transact
 from Products.Zuul.catalog.events import IndexingEvent
 from Products.Zuul.facades import ZuulFacade
 from Products.Zuul.utils import ZuulMessageFactory as _t
+from Products.ZenUtils.Utils import zenPath
 
 from ZenPacks.zenoss.OpenStack.interfaces import IOpenStackFacade
 
@@ -55,6 +58,8 @@ def _runcommand(cmd):
         except Exception:
             message = stderr
 
+        message = "\n".join([x for x in message.split("\n") if "zminion-return" not in x])
+        message = message.replace('\r', '').replace('\n', '')
         log.exception(subprocess.CalledProcessError(p.returncode, cmd=cmd, output=message))
         raise KeystoneError(message)
 
@@ -111,7 +116,7 @@ class OpenStackFacade(ZuulFacade):
 
         return True, 'Device addition scheduled'
 
-    def getRegions(self, username, api_key, project_id, auth_url):
+    def getRegions(self, username, api_key, project_id, auth_url, collector):
         """Get a list of available regions, given a keystone endpoint and credentials."""
 
         cmd = [_helper, "getRegions"]
@@ -119,5 +124,13 @@ class OpenStackFacade(ZuulFacade):
         cmd.append("--api_key=%s" % api_key)
         cmd.append("--project_id=%s" % project_id)
         cmd.append("--auth_url=%s" % auth_url)
+
+        if os.path.exists(zenPath("bin", "zminion")):
+            # Escape shell characters in command
+            cmd = [shellquote(x) for x in cmd]
+            cmd = [
+                'zminion',
+                '--minion-name', 'zminion_%s' % collector,
+                'run', '--'] + cmd
 
         return _runcommand(cmd)

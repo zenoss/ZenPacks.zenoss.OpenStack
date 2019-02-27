@@ -225,13 +225,14 @@ var addOpenStack = new Zenoss.Action({
         combo = Ext.getCmp('region_name');
         store = combo.getStore();
 
-        if (formvalues.username && formvalues.api_key && formvalues.project_id && formvalues.auth_url) {
+        if (formvalues.username && formvalues.api_key && formvalues.project_id && formvalues.auth_url && formvalues.collector) {
             store.load({
                params: {
                    username: formvalues.username,
                    api_key: formvalues.api_key,
                    project_id: formvalues.project_id,
-                   auth_url: formvalues.auth_url
+                   auth_url: formvalues.auth_url,
+                   collector: formvalues.collector,
                },
                callback: function(records, operation, success) {
                     combo.select(store.getAt(0));
