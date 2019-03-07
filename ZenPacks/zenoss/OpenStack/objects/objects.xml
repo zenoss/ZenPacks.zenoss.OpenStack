@@ -1089,7 +1089,7 @@ if device and evt.component:
     image = device.images._getOb(evt.component, None)
     if image:
         if evt.imageStatus != image.imageStatus:
-            image.serverStatus = evt.imageStatus
+            image.imageStatus = evt.imageStatus
             txnCommit()
 </property>
 <property type="string" id="eventClassKey" mode="w" >

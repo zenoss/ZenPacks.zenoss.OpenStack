@@ -11,11 +11,21 @@ var addOpenStack = new Zenoss.Action({
     id: 'addopenstack-item',
     permission: 'Manage DMD',
     handler: function(btn, e){
+        // store for the region dropdown
+        regionStore = new Zenoss.NonPaginatedStore({
+            fields: ['key', 'label'],
+            root: 'data',
+            directFn: Zenoss.remote.OpenStackRouter.getRegions,
+            remoteFilter: false,
+            autoload: false
+        });
+
         var win = new Zenoss.dialog.CloseDialog({
-            width: 450,
+            width: 640,
             title: _t('Add OpenStack Endpoint (User)'),
             items: [{
                 xtype: 'form',
+                id: 'addopenstackuser-form',
                 buttonAlign: 'left',
                 monitorValid: true,
                 labelAlign: 'top',
@@ -26,16 +36,59 @@ var addOpenStack = new Zenoss.Action({
                     layout: 'hbox',
                     items: [{
                         xtype: 'textfield',
+                        name: 'device_name',
+                        fieldLabel: _t('Device to Create'),
+                        labelWidth: 120,
+                        id: "openstack_device_name",
+                        width: 350,
+                        allowBlank: false,
+                    },{
+                        xtype: 'label',
+                        style: 'font-style: italic',
+                        text: '(Do not use an actual hostname)',
+                        margin: '0 0 0 10'
+                    }]
+                }, {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'textfield',
+                        name: 'auth_url',
+                        fieldLabel: _t('Auth URL'),
+                        labelWidth: 120,
+                        id: "openstack_auth_url",
+                        width: 350,
+                        allowBlank: false,
+                        listeners: {
+                            blur: this.updateRegions,
+                            scope: this
+                        }
+                    },{
+                        xtype: 'label',
+                        style: 'font-style: italic',
+                        text: '(OS_AUTH_URL)',
+                        margin: '0 0 0 10'
+                    }]
+                }, {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'textfield',
                         name: 'username',
                         fieldLabel: _t('Username'),
+                        labelWidth: 120,
                         id: "openstack_username",
-                        width: 260,
-                        allowBlank: false   
+                        width: 350,
+                        allowBlank: false,
+                        listeners: {
+                            blur: this.updateRegions,
+                            scope: this
+                        }
                     },{
                         xtype: 'label',
                         style: 'font-style: italic',
                         text: '(OS_USERNAME)',
-                        margin: '0 0 0 10'                        
+                        margin: '0 0 0 10'
                     }]
                 }, {
                     xtype: 'container',
@@ -44,68 +97,73 @@ var addOpenStack = new Zenoss.Action({
                         xtype: 'password',
                         name: 'api_key',
                         fieldLabel: _t('Password / API Key'),
+                        labelWidth: 120,
                         id: "openstack_api_key",
-                        width: 260,
-                        allowBlank: false
+                        width: 350,
+                        allowBlank: false,
+                        listeners: {
+                            blur: this.updateRegions,
+                            scope: this
+                        }
                     },{
                         xtype: 'label',
-                        style: 'font-style: italic',                        
+                        style: 'font-style: italic',
                         text: '(OS_PASSWORD)',
-                        margin: '0 0 0 10'                        
-                    }]                        
+                        margin: '0 0 0 10'
+                    }]
                 }, {
                     xtype: 'container',
                     layout: 'hbox',
-                    items: [{                
+                    items: [{
                         xtype: 'textfield',
                         name: 'project_id',
-                        fieldLabel: _t('Project ID'),
+                        fieldLabel: _t('Project/Tenant ID'),
+                        labelWidth: 120,
                         id: "openstack_project_id",
-                        width: 260,
-                        allowBlank: true
+                        width: 350,
+                        allowBlank: false,
+                        listeners: {
+                            blur: this.updateRegions,
+                            scope: this
+                        }
                     },{
                         xtype: 'label',
-                        style: 'font-style: italic',                        
-                        text: '(NOVA_PROJECT_ID)',
+                        style: 'font-style: italic',
+                        text: '(NOVA_PROJECT_ID or OS_TENANT_NAME)',
                         margin: '0 0 0 10'
                     }]
                 }, {
                     xtype: 'container',
                     layout: 'hbox',
-                    items: [{               
-                        xtype: 'textfield',
-                        name: 'auth_url',
-                        fieldLabel: _t('Auth URL'),
-                        id: "openstack_auth_url",
-                        width: 260,
-                        allowBlank: true,
-                    },{
-                        xtype: 'label',
-                        style: 'font-style: italic',                        
-                        text: '(OS_AUTH_URL)',
-                        margin: '0 0 0 10'
-                    }]
-                }, {
-                    xtype: 'container',
-                    layout: 'hbox',
-                    items: [{                    
-                        xtype: 'textfield',
+                    items: [{
+                        xtype: 'combo',
+                        width: 350,
                         name: 'region_name',
                         fieldLabel: _t('Region Name'),
-                        id: "openstack_region_name",
-                        width: 260,
-                        allowBlank: true
+                        labelWidth: 120,
+                        id: 'region_name',
+                        triggerAction: 'all',
+                        queryMode: 'local',
+                        valueField: 'key',
+                        displayField: 'label',
+                        store: regionStore,
+                        forceSelection: true,
+                        editable: false,
+                        allowBlank: false,
+                        triggerAction: 'all',
+                        selectOnFocus: false,
                     },{
                         xtype: 'label',
-                        style: 'font-style: italic',                        
+                        style: 'font-style: italic',
                         text: '(OS_REGION_NAME)',
                         margin: '0 0 0 10'
                     }]
                 }, {
                     xtype: 'combo',
-                    width: 260,
+                    width: 350,
                     name: 'collector',
                     fieldLabel: _t('Collector'),
+                        labelWidth: 120,
                     id: 'openstack_collector',
                     mode: 'local',
                     store: new Ext.data.ArrayStore({
@@ -157,7 +215,33 @@ var addOpenStack = new Zenoss.Action({
                 }, Zenoss.dialog.CANCEL]
             }]
         });
+
         win.show();
+    },
+
+    updateRegions: function () {
+        form = Ext.getCmp('addopenstackuser-form').getForm();
+        formvalues = form.getFieldValues();
+        combo = Ext.getCmp('region_name');
+        store = combo.getStore();
+
+        if (formvalues.username && formvalues.api_key && formvalues.project_id && formvalues.auth_url && formvalues.collector) {
+            store.load({
+               params: {
+                   username: formvalues.username,
+                   api_key: formvalues.api_key,
+                   project_id: formvalues.project_id,
+                   auth_url: formvalues.auth_url,
+                   collector: formvalues.collector,
+               },
+               callback: function(records, operation, success) {
+                    combo.select(store.getAt(0));
+                    combo.fireEvent('select');
+               }
+            });
+        } else {
+            store.removeAll()
+        }
     }
 });
 
@@ -176,6 +260,7 @@ var NS = Ext.namespace('Zenoss.zenpacks.OpenStack');
 
 // OpenStackEndPoint Inspector
 function addOpenStackEndPointInspectorFields(inspector) {
+    inspector.addPropertyTpl(_t('Device Name'), '{values.device_name}');
     inspector.addPropertyTpl(_t('Username'), '{values.username}');
     inspector.addPropertyTpl(_t('Project ID'), '{values.project_id}');
     inspector.addPropertyTpl(_t('Auth URL'), '{values.auth_url}');
