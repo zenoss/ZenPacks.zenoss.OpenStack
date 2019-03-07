@@ -30,3 +30,6 @@ clean:
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf $(BIN_DIR)
 	mkdir $(BIN_DIR)
+
+docs:
+	pandoc -f mediawiki README.mediawiki -o /tmp/openstack.html
