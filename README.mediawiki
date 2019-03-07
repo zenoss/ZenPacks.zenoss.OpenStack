@@ -89,6 +89,7 @@ If you are also using Zenoss to monitor the guest operating system running withi
 * Require user to name the device, rather than using the manageIp
 * No longer use manageIp at all. This allows for multiple user devices to contact the same openstack install.
 * Drop novaclient dependency and adopt OSI txapiclient code
+* Tested with Zenoss Cloud and Zenoss Resource Manager 6.3.2
 
 ;1.2.4
 * zOpenStackInsecure option added to skip SSL certificate verification, which allows self-signed or third-party certificates. (ZEN-23460)
