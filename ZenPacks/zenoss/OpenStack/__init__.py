@@ -70,14 +70,22 @@ def getOpenStackServer(self):
 
     catalog = ICatalogTool(self.dmd)
     for record in catalog.search('ZenPacks.zenoss.OpenStack.Server.Server'):
-        server = record.getObject()
+        try:
+            server = record.getObject()
+        except Exception:
+            continue
+
         server_ips = set()
 
-        if server.publicIps:
-            server_ips.update(server.publicIps)
+        try:
+            if server.publicIps:
+                server_ips.update(server.publicIps)
 
-        if server.privateIps:
-            server_ips.update(server.privateIps)
+            if server.privateIps:
+                server_ips.update(server.privateIps)
+        except AttributeError:
+            # ZPS-5852: Somehow there may be servers without these attributes.
+            continue
 
         if server_ips.intersection(device_ips):
             return server
