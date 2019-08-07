@@ -66,7 +66,10 @@ def getOpenStackServer(self):
 
     for iface in self.os.interfaces():
         for ip in iface.getIpAddresses():
-            device_ips.add(ip.split('/')[0])
+            try:
+                device_ips.add(ip.split('/')[0])
+            except Exception:
+                continue
 
     catalog = ICatalogTool(self.dmd)
     for record in catalog.search('ZenPacks.zenoss.OpenStack.Server.Server'):
