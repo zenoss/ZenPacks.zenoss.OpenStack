@@ -28,10 +28,10 @@ from service_identity._common import (
 from twisted.python.failure import Failure
 from twisted.web.iweb import IPolicyForHTTPS
 from twisted.internet.ssl import CertificateOptions
-from twisted.internet._sslverify import (
-    ClientTLSOptions, SSL_CB_HANDSHAKE_START, SSL_CB_HANDSHAKE_DONE)
+from twisted.internet._sslverify import ClientTLSOptions
 from twisted.web.client import BrowserLikePolicyForHTTPS
 
+from OpenSSL.SSL import SSL_CB_HANDSHAKE_START, SSL_CB_HANDSHAKE_DONE
 from zope.interface.declarations import implementer
 
 
