@@ -9,11 +9,11 @@ this ZenPack is available to commercial customers with an active subscription.
 
 == Releases ==
 
-=== Version 1.3.0 [http://wiki.zenoss.org/download/zenpacks/ZenPacks.zenoss.OpenStack/1.3.0/ZenPacks.zenoss.OpenStack-1.3.0.egg Download] ===
+=== Version 1.3.2 [http://wiki.zenoss.org/download/zenpacks/ZenPacks.zenoss.OpenStack/1.3.2/ZenPacks.zenoss.OpenStack-1.3.2.egg Download] ===
 Summary of changes:
-* Removed dependency upon novaclient (and its dependencies)
-* Allow for multiple user devices to contact the same openstack install
-;Released on 2019/03/07
+* Support for Twisted library update
+* Tested with Zenoss Resource Manager 6.4.1, Zenoss Cloud and Service Impact 5.5.1
+;Released on 2020/06/05
 ;Compatible with Zenoss Cloud and Zenoss 6.2 - 6.3
 
 === Version 1.2.3 
@@ -26,11 +26,6 @@ Summary of changes:
 ;Released on 2014/10/09
 ;Compatible with Zenoss 4.2 - 5.x
 
-=== Version 1.2.2 [http://wiki.zenoss.org/download/zenpacks/ZenPacks.zenoss.OpenStack/1.2.2/ZenPacks.zenoss.OpenStack-1.2.2.egg Download] ===
-Summary of changes:
-* Fix version-specific polling
-;Released on 2014/02/14
-;Compatible with Zenoss 3.1, 3.2, 4.1, 4.2
 
 == Background ==
 This ZenPack allows for monitoring of OpenStack. This means that you can monitor 
@@ -83,6 +78,12 @@ Status monitoring is performed on servers and images with the following mapping 
 If you are also using Zenoss to monitor the guest operating system running within the server Zenoss will present the graphs for that operating system when the graphs option is chosen for the OpenStack server.
 
 == Changes ==
+
+;1.3.2
+* Add support for Twisted library update (ZPS-7071)
+
+;1.3.1
+* Address compatibility issues with Impact 5.5
 
 ;1.3.0
 * Change "add" form to more closely resemble the one used for OpenStackInfrastructure
