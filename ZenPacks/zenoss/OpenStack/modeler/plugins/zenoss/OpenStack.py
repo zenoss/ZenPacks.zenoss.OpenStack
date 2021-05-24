@@ -40,6 +40,7 @@ class OpenStack(PythonPlugin):
 
     @inlineCallbacks
     def collect(self, device, unused):
+        log.debug("Zendev test modeler collection fix zp-1234")
         region_name = None
         if device.zOpenStackRegionName:
             region_name = device.zOpenStackRegionName
